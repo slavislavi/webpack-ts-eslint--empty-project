@@ -9,7 +9,7 @@ const devServer = (isDev) => !isDev ? {} : {
   devServer: {
     open: true,
     port: 8080,
-    contentBase: path.join(__dirname, 'public'),
+    contentBase: path.join(__dirname, 'dist'),
   },
 };
 
@@ -24,7 +24,7 @@ module.exports = ({ development }) => ({
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
-    assetModuleFilename: 'assets/[hash][ext]',
+    // assetModuleFilename: 'assets/[hash][ext]',
   },
   module: {
     rules: [
@@ -53,13 +53,16 @@ module.exports = ({ development }) => ({
   },
   plugins: [
     ...esLintPlugin(development),
-    new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
-    new HtmlWebpackPlugin({ title: 'The Cantina' }),
-    new CopyPlugin({
-      patterns: [
-        { from: 'public' },
-      ],
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
+    new HtmlWebpackPlugin({
+      title: 'Match Match Game',
+      template: './src/index.html'
     }),
+    // new CopyPlugin({
+    //   // patterns: [
+    //   //   { from: 'public' },
+    //   // ],
+    // }),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
   ],
   resolve: {
